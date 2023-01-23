@@ -9,6 +9,12 @@ from utils.login import login
 from utils.logout import logout
 from utils.register import register
 from utils.home import home
+from utils.appoint import appointment
+from utils.inpatient import inpatient
+from utils.dashboard import dashboard
+
+
+
 
 app = Flask(__name__, static_folder='../templates/static')
 
@@ -25,10 +31,19 @@ app.register_blueprint(login)
 app.register_blueprint(logout)
 app.register_blueprint(register)
 app.register_blueprint(home)
+app.register_blueprint(appointment)
+app.register_blueprint(inpatient)
+app.register_blueprint(dashboard)
+
+
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

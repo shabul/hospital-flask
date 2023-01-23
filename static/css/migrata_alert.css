@@ -1,0 +1,285 @@
+/* Google Font Import - Poppins */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+} */
+
+/* body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    overflow: hidden;
+} */
+
+.toasted{
+    position: fixed;
+    top: 73px;
+    right: 15px;
+    border-radius: 12px;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    max-width:40%;
+    min-width:30%;
+    min-height:16%;
+    z-index:100;
+}
+
+
+.success{
+    background: rgb(203, 224, 245);
+    border-left: 6px solid #6488ed;
+    color: #000000;
+}
+
+.warning{
+    background: #ffdb9b;
+    border-left: 6px solid #ffa502;
+    color: rgb(0, 0, 0);
+}
+
+.info{
+    background: #c2f8b4;
+    border-left: 6px solid #5fb54a;
+    color: rgb(0, 0, 0);
+}
+
+.failed{
+    background: #f3cecd;
+    border-left: 6px solid #f77c7c;
+    color: rgb(0, 0, 0);
+}
+
+
+/* .toasted.active{
+    transform: translateX(0%);
+} */
+.toasted.active{
+animation: show_slide 1s ease forwards;
+}
+
+@keyframes show_slide {
+    0%{
+        transform: translateX(100%);
+    }
+    40%{
+        transform: translateX(-10%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}
+
+.toasted.hide{
+    animation: hide_slide 1s ease forwards;
+    }
+
+@keyframes hide_slide {
+    0%{
+        transform: translateX(-10px);
+    }
+    40%{
+        transform: translateX(0%);
+    }
+    80%{
+        transform: translateX(-10%);
+    }
+    100%{
+        transform: translateX(200%);
+    }
+}
+
+.toasted .toasted-content{
+    display: flex;
+    align-items: center;
+    z-index:10;
+}
+
+.toasted-content .icon-success{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0055f4;
+    color: #fff;
+    height: 35px;
+    width: 35px;
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 14px;
+    z-index:10;
+}
+
+.toasted-content .icon-warning{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #dc842c;
+    color: #fff;
+    height: 35px;
+    width: 35px;
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 14px;
+}
+
+.toasted-content .icon-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0a9b22;
+    color: #fff;
+    height: 35px;
+    width: 35px;
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 14px;
+    z-index:10px;
+}
+
+.toasted-content .icon-failed{
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f65858;
+    color: #fff;
+    height: 35px;
+    width: 35px;
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 14px;
+}
+
+.toasted-content .message{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+
+.message .alerttext {
+    font-size: 15px;
+    margin-bottom:0px;
+}
+
+
+.message .alerttext.title-1{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(51, 51, 51);
+    margin-bottom:7px;
+}
+
+.msg-2{
+    font-weight: normal;
+}
+
+.toasted .close{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+    color: #404349;
+    font-size: 20px;
+}
+
+.toasted .close:hover{
+    opacity: 1;
+    color: rgb(0, 0, 0);
+}
+
+.toasted .progressbar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+
+.success .progressbar:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #6488ed
+}
+
+.warning .progressbar:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #ffa502;
+}
+
+.info .progressbar:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #64c24d; 
+    /* 64c24d; */
+}
+
+.failed .progressbar:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #f77c7c;
+}
+
+.progressbar.active:before{
+    animation: progressbar 5.4s linear forwards;
+    
+}
+
+@keyframes progressbar {
+    0%{
+        right: 0%;
+    }
+    100%{
+        right:100%;
+    }
+}
+
+
+
+/* button{
+    padding: 12px 20px;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    background-color: #4070f4;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background-color: #0e4bf1;
+} */
+
+.toasted.active ~ button{
+    pointer-events: none;
+}

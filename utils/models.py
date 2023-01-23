@@ -31,5 +31,8 @@ class InPatients(UserMixin,db.Model):
     fee_per_day = db.Column(db.Integer)
 
 
+## Age =- PIE chart
+## Inpatient - Count - 2 cards
 
+## docotr and his appoitments - bar chart - count of appoitments
 

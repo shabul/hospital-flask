@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 import sqlalchemy
 from flask_login import LoginManager
 
@@ -43,7 +43,9 @@ app.register_blueprint(dashboard)
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
-
+@app.route('/dash_html_page')
+def dash_page():
+    return render_template('dashboard.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

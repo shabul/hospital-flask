@@ -1,6 +1,8 @@
 from flask import Blueprint, url_for, render_template, redirect, request
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
+import pandas as pd
+
 
 from utils.models import db, InPatients
 from pytz import timezone
@@ -11,6 +13,12 @@ UTC = timezone('UTC')
 def time_now():
     return datetime.now(UTC)
 
+def row2dict(row):
+        d = {}
+        for column in row.__table__.columns:
+            d[column.name] = str(getattr(row, column.name))
+
+        return d
 
 dashboard = Blueprint('dashboard', __name__, template_folder='../templates')
 login_manager = LoginManager()
@@ -22,8 +30,13 @@ def dashboard_api():
     inp_data = InPatients.query.all()
 
     print(inp_data,type(inp_data))
+    
+    
 
+    response_inpatients = []
     for pat in inp_data:
-        for p in pat:
-            print(p)
-    return str(inp_data)
+        response_inpatients.append(row2dict(pat))
+
+
+    
+    return {'data' : response_inpatients}

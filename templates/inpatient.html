@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Inpatient</title>
   <link rel="stylesheet" href="../static/css/datepicker_ui.css" />
+  <link rel="icon" href="/static/images/logo1.png" type="image/icon type" />
 
   <!-- Bootstrap CSS File -->
   <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
@@ -13,7 +14,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
 <!--   <link href="{{ url_for('static', filename='css/icofont.min.css') }}" rel="stylesheet" /> -->
   <!-- Libraries CSS Files -->
-  
+  <link href="{{ url_for('static', filename='css/sweetalert2.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/migrata_alert.css') }}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <!-- Main Stylesheet File -->
@@ -23,11 +25,7 @@
     href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" />
   <link rel="stylesheet" type="text/css"
     href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css" />
-
-
-
-    
-  </head>
+</head>
 
     
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -74,9 +72,6 @@
       overflow: scroll;
       overflow-x: hidden;
     }
-
-    
-    
   </style>
 
 <body>
@@ -104,10 +99,10 @@
                   <span >Book Appointment</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link swipe-up" href="/inpatient_entry">
+                <a class="nav-link swipe-up active" href="/inpatient_entry">
                   <span>Inpatient Entry</span></a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link swipe-up" href="/view_dashboard">
                   <span>View Records</span></a>
               </li>
@@ -123,120 +118,30 @@
   </div>
 
   <!-- -------------Nav bar end------------------ -->
-  
-  <div class="container-fluid content-wrapper mb-5 p-0">
-    <div class="container wrapper services col-md-10">
-      <div class="row">
-        <div class="col-6 title">
-          <h2>Appointment Records</h2>
-        </div>
-      </div>
-      <table id="app_table"  ></table>          
-    </div>
-  </div>
 
   <div class="container-fluid content-wrapper mb-5 p-0">
     <div class="container wrapper services">
       <div class="row">
         <div class="col-6 title">
-          <h2>Inpatient Records</h2>
+          <h2>Add Inpatient Information</h2>
         </div>
       </div>
-      <table id="inpatient_table" ></table>          
+    
+    <br/>
+
+    <form method="POST" action="/inpatient">
+        <input type="text" name="inpname" class="form-control" placeholder="Patient Name">
+        <br/>
+        <input type="text" name="inpage" class="form-control" placeholder="Age">
+        <br/>
+        <input type="text" name="admit_time" class="form-control" placeholder="Admit Time">
+        <br/>
+        <button type="submit"  class="btn btn-primary" type="submit">Add</button>
+    </form>
     </div>
-  </div>
-
+ </div>
 </body>
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
 
-<script src="../static/js/popper.min.js"></script>
-<script src="../static/js/bootstrap.min.js"></script>
-<script src="../static/js/bootstrap-multiselect.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript"
-  src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.12.1/api/column().title().js"></script>
-
-
-<script type="text/javascript">
-
-    $(window).on("load", appointment_data);
-    function appointment_data() {
-	$('#app_table').show();
-        $('#app_table').DataTable( {
-            ajax:{
-              type: "POST",
-
-              url: "/appoint_data",
-              "dataType": "json",
-              "dataSrc": "data",
-              "contentType": "application/json"
-              // dataSrc: 'responseData',
-              // "data": {start: "HI"},
-            },
-            fixedColumns: true,
-            lengthMenu: [
-              [10, 25, 50,-1],
-              [10, 25, 50, "All"],
-            ],
-            columns: [
-              { title: "Appointment Id", data: "appointment_id" },
-              { title: "Patient Name",data: "patient_name"},
-              { title: "Gender", data:"gender"},
-              { title: "Age", data:"age"},
-              { title: "Medical Complications", data:"med_comp"},
-              { title: "Height", data:"height"},
-              { title: "Weight", data:"weight"},
-              { title: "Appointment Date", data:"app_date"},
-              { title: "Appointment Time", data:"app_time"},
-              { title: "Doctor Name", data:"dr_name"},
-              { title: "Address", data:"address"},
-            ]
-
-        });
-
-    };
-
-    $(window).on("load", patient_data);
-    function patient_data() {
-	$('#inpatient_table').show();
-        $('#inpatient_table').DataTable( {
-            ajax:{
-              type: "POST",
-
-              url: "/inpatient_data",
-              "dataType": "json",
-              "dataSrc": "data",
-              "contentType": "application/json"
-              // dataSrc: 'responseData',
-              // "data": {start: "HI"},
-            },
-            fixedColumns: true,
-            lengthMenu: [
-              [10, 25, 50,-1],
-              [10, 25, 50, "All"],
-            ],
-            columns: [
-              { title: "Patient Id", data: "patient_id" },
-              { title: "Patient Name",data: "patient_name"},
-              { title: "Gender", data:"gender"},
-              { title: "Age", data:"age"},
-              { title: "Doctor Name", data:"doctor_name"},
-              { title: "Admit Time", data:"admit_time"},
-        ]
-
-} );
-
-      };
-
-
-</script>
 
 
 </html>

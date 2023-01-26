@@ -1,0 +1,32 @@
+<script>
+
+
+
+$(document).ready(function() {
+      $("#submit-button").click(function(event){
+         
+         $.ajax({
+            url: "/appointment",
+            type: "get",
+            contentType: "application/json",
+            data: {
+              pname: document.getElementById('number').value,
+              age : 
+            
+              
+              
+            
+            },
+           success: function(response) {
+           $("#response").html(response);
+         },
+          error: function(xhr) {
+        //Do Something to handle error
+        console.log("Error")
+        
+        }
+       });
+     });
+   });
+
+</script>

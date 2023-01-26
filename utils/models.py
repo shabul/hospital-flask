@@ -15,10 +15,15 @@ class Appointments(UserMixin,db.Model):
     appointment_id =db.Column(db.Integer, db.Sequence('seq_reg_id', start=1000, increment=1),primary_key=True)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     patient_name = db.Column(db.String(25))
-    gender = db.Column(db.String(10))
     age = db.Column(db.Integer)
-    doctor_name = db.Column(db.String(25))
-    date_time = db.Column(db.DateTime)
+    gender = db.Column(db.String(10))
+    med_comp = db.Column(db.ARRAY(db.String(25)))
+    address = db.Column(db.String(100))
+    height = db.Column(db.Integer)
+    weight = db.Column(db.Integer)
+    dr_name = db.Column(db.String(25))
+    app_date = db.Column(db.Date)
+    app_time = db.Column(db.Time)
 
 class InPatients(UserMixin,db.Model):
     patient_id =db.Column(db.Integer, db.Sequence('seq_reg_id', start=100, increment=1),primary_key=True)
@@ -30,7 +35,20 @@ class InPatients(UserMixin,db.Model):
     admit_time = db.Column(db.DateTime)
     fee_per_day = db.Column(db.Integer)
 
-
+class AppointmentsData(UserMixin,db.Model):
+    appointment_id =db.Column(db.Integer, db.Sequence('seq_reg_id', start=1000, increment=1),primary_key=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    patient_name = db.Column(db.String(25))
+    age = db.Column(db.Integer)
+    gender = db.Column(db.String(10))
+    med_comp = db.Column(db.String(100))
+    address = db.Column(db.String(100))
+    height = db.Column(db.Integer)
+    weight = db.Column(db.Integer)
+    dr_name = db.Column(db.String(25))
+    app_date = db.Column(db.Date)
+    app_time = db.Column(db.Time)
+    
 ## Age =- PIE chart
 ## Inpatient - Count - 2 cards
 

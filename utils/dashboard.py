@@ -1,10 +1,10 @@
-from flask import Blueprint, url_for, render_template, redirect, request
+from flask import Blueprint, url_for, render_template, redirect, request, jsonify
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
 import pandas as pd
 
 
-from utils.models import db, InPatients
+from utils.models import AppointmentsData, InPatients
 from pytz import timezone
 from datetime import datetime
 
@@ -24,9 +24,27 @@ dashboard = Blueprint('dashboard', __name__, template_folder='../templates')
 login_manager = LoginManager()
 login_manager.init_app(dashboard)
 
-@dashboard.route('/dashboard', methods=['GET', 'POST'])
-def dashboard_api():
+@dashboard.route('/appoint_data', methods=['GET', 'POST'])
+def dashboard_appoint():
+    print("Im in dashboard")
+    inp_data = AppointmentsData.query.all()
+
+    print(inp_data,type(inp_data))
     
+    
+
+    response_inpatients = []
+    for pat in inp_data:
+        response_inpatients.append(row2dict(pat))
+
+    print(response_inpatients)
+    
+    return jsonify({'data' : response_inpatients})
+
+
+@dashboard.route('/inpatient_data', methods=['GET', 'POST'])
+def dashboard_inpatient():
+    print("Im in dashboard")
     inp_data = InPatients.query.all()
 
     print(inp_data,type(inp_data))
@@ -37,6 +55,6 @@ def dashboard_api():
     for pat in inp_data:
         response_inpatients.append(row2dict(pat))
 
-
+    print(response_inpatients)
     
-    return {'data' : response_inpatients}
+    return jsonify({'data' : response_inpatients})

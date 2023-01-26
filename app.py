@@ -1,6 +1,6 @@
 from flask import Flask,render_template
 import sqlalchemy
-from flask_login import LoginManager
+from flask_login import LoginManager,login_required
 
 from utils.models import db, Users
 
@@ -13,10 +13,11 @@ from utils.appoint import appointment
 from utils.inpatient import inpatient
 from utils.dashboard import dashboard
 
+## https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login -- ref
 
 
 
-app = Flask(__name__, static_folder='../templates/static')
+app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../database.db'
@@ -43,7 +44,21 @@ app.register_blueprint(dashboard)
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
-@app.route('/dash_html_page')
+
+@app.route('/book_appointment')
+@login_required
+def appoint():
+    return render_template('appointment.html')
+
+
+@app.route('/inpatient_entry')
+@login_required
+def inpatient():
+    return render_template('inpatient.html')
+
+
+@app.route('/view_dashboard')
+@login_required
 def dash_page():
     return render_template('dashboard.html')
 

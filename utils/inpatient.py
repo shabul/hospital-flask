@@ -49,5 +49,7 @@ def show():
         appointment_reference['pname'] = pname
         appointment_reference['doctor_name'] = doctorname
         appointment_reference['time'] = date_time_appoinement
-        
-        return appointment_reference
+        print(appointment_reference)
+
+        # flash("Added Successfully")
+        return render_template('inpatient.html')

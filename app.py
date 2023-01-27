@@ -5,7 +5,7 @@ from flask_login import LoginManager,login_required
 from utils.models import db, Users
 
 from utils.index import index
-from utils.login import login
+from utils.login_auth import login
 from utils.logout import logout
 from utils.register import register
 from utils.home import home
@@ -44,7 +44,15 @@ app.register_blueprint(dashboard)
 def load_user(user_id):
     return Users.query.get(int(user_id))
 
+@app.route('/')
+def login_landing():
+    return render_template('login.html')
 
+@app.route('/register_auth')
+def register_landing():
+    return render_template('register.html')
+
+## appoint la problem
 @app.route('/book_appointment')
 @login_required
 def appoint():
@@ -53,7 +61,7 @@ def appoint():
 
 @app.route('/inpatient_entry')
 @login_required
-def inpatient():
+def inpatient_landing():
     return render_template('inpatient.html')
 
 

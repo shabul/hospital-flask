@@ -1,7 +1,7 @@
-from flask import Blueprint, url_for, render_template, redirect, request
+from flask import Blueprint, url_for, render_template, redirect, request,jsonify
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
-
+import sqlalchemy
 from utils.models import db, Users
 
 register = Blueprint('register', __name__, template_folder='../templates')
@@ -10,12 +10,15 @@ login_manager.init_app(register)
 
 @register.route('/register', methods=['GET', 'POST'])
 def show():
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        confirm_password = request.form['confirm-password']
-
+    if True:
+        username = request.args.get('username')
+        email = request.args.get('email')
+        password = request.args.get('password')
+        confirm_password = request.args.get('confirm_password')
+        
+        print("I am in register page")
+        print(username,email,password,confirm_password)
+        
         if username and email and password and confirm_password:
             if password == confirm_password:
                 hashed_password = generate_password_hash(
@@ -29,11 +32,23 @@ def show():
 
                     db.session.add(new_user)
                     db.session.commit()
+                    print('Success Registaion')
+                    print("jsonify({'registration' : 'success'})")
+                    return jsonify({'registration' : 'success'})
+                
                 except sqlalchemy.exc.IntegrityError:
-                    return redirect(url_for('register.show') + '?error=user-or-email-exists')
+                    print("jsonify({'registration' : 'User or Email already exists.'})")
+                    return jsonify({'registration' : 'User or Email already exists.'})
+                
+                
 
-                return redirect(url_for('login.show') + '?success=account-created')
+            else:
+                ## PAssword doesnt match
+                print("jsonify({'registration' : 'Password Mismatch'})")
+                return jsonify({'registration' : 'Password Mismatch'})
+                
+                
         else:
-            return redirect(url_for('register.show') + '?error=missing-fields')
-    else:
-        return render_template('register.html')
+            print("jsonify({'registration' : 'Please fill all the fields'})")
+            return jsonify({'registration' : 'Please fill all the fields'})
+                    

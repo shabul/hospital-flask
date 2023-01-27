@@ -1,5 +1,5 @@
 from flask import Blueprint, url_for, render_template, redirect, request, jsonify
-from flask_login import LoginManager
+from flask_login import LoginManager,login_required
 from werkzeug.security import generate_password_hash
 import pandas as pd
 
@@ -25,6 +25,7 @@ login_manager = LoginManager()
 login_manager.init_app(dashboard)
 
 @dashboard.route('/appoint_data', methods=['GET', 'POST'])
+@login_required
 def dashboard_appoint():
     print("Im in dashboard")
     inp_data = AppointmentsData.query.all()

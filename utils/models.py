@@ -49,6 +49,26 @@ class AppointmentsData(UserMixin,db.Model):
     app_date = db.Column(db.Date)
     app_time = db.Column(db.Time)
     
+
+class InPatientsData(UserMixin,db.Model):
+    patient_id =db.Column(db.Integer, db.Sequence('seq_reg_id', start=100, increment=1),primary_key=True)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    patient_name = db.Column(db.String(25))
+    dob = db.Column(db.Date)
+    gender = db.Column(db.String(10))
+    room_type = db.Column(db.String(25))
+    insurance = db.Column(db.Boolean)
+    emp_type = db.Column(db.String(20))
+    contact_person = db.Column(db.String(40))
+    phone_number = db.Column(db.String(20))
+    dr_name = db.Column(db.String(25))
+    admit_date = db.Column(db.Date)
+    admit_time = db.Column(db.Time)
+    minor = db.Column(db.Boolean)
+    accident = db.Column(db.Boolean)
+
+
+
 ## Age =- PIE chart
 ## Inpatient - Count - 2 cards
 

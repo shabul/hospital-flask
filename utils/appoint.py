@@ -1,5 +1,5 @@
 from flask import Blueprint, url_for, render_template, redirect, request,flash,jsonify
-from flask_login import LoginManager
+from flask_login import LoginManager,login_required
 from werkzeug.security import generate_password_hash
 import sqlalchemy
 from utils.models import db, AppointmentsData
@@ -17,6 +17,7 @@ login_manager = LoginManager()
 login_manager.init_app(appointment)
 
 @appointment.route('/appointment', methods=['GET', 'POST'])
+@login_required
 def show():
     # if request.method == 'POST':
     if True ==True:
@@ -50,7 +51,7 @@ def show():
             db.session.add(new_user)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
-            return redirect(url_for('register.show') + '?error=user-or-email-exists')
+            return 'Entered Data Already exists or mismatches with the format it takes.<br> Kindly Re-check all fields and Book again.'
 
         appointment_id_from_db = AppointmentsData.query.filter_by(patient_name=pname).first().appointment_id
 

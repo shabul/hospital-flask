@@ -135,14 +135,19 @@
           <h2>Book Appointment</h2>
         </div>
       </div>
-    
+
+
+      <div style="align-content: center; margin-left: -140px;" align="center" id="stats">
+        <p class="h5" id="result"></p>
+           </div>
+      
     <br/>
     <div class="row">
     <div class="col-md-6">
-    <!-- <form method="POST" action="/appointment"> -->
+    <form>
         
         <label >Patient Name </label>
-        <input type="text" id="number" class="form-control" placeholder="Patient Name">
+        <input type="text" id="pname" class="form-control" placeholder="Patient Name">
         <br/>
         <label >Age</label>
 
@@ -208,11 +213,11 @@
 
 
         <label>Date for Appointment</label>
-        <input type="date" id="app_date"  class="form-control"   placeholder="Height in cms" onkeypress="return isNumber(event);" />
+        <input type="date" id="app_date"  class="form-control" />
         <br>        
 
         <label>Time for Appointment</label>
-        <input type="time" id="app_time"  class="form-control"   placeholder="Height in cms" onkeypress="return isNumber(event);" />
+        <input type="time" id="app_time"  class="form-control" />
         <br>
 
 
@@ -254,7 +259,7 @@
 
       </div>
         <button type="submit" id="submit-button" class="btn btn-primary" type="submit">Book Appointment</button>
-    <!-- </form> -->
+    </form>
     
     </div>
  </div>
@@ -264,9 +269,6 @@
 </center> -->
 
 
-<div style="align-content: center; margin-left: -140px;" align="center" id="stats">
-  <p class="h5" id="result"></p>
-     </div>
 
 
 
@@ -300,9 +302,11 @@ function isNumber(e){
 }
 
 
+
+
 $(document).ready(function() {
       $("#submit-button").click(function(event){
-        var pname = document.getElementById('number').value;
+        var pname = document.getElementById('pname').value;
         var age =  document.getElementById('age').value;
         var gender = $('input[name="gender"]:checked').val();
         var med_comp = $("input[name='med_comp']:checked").map(function() {
@@ -326,7 +330,7 @@ $(document).ready(function() {
         console.log(height,weight);
         console.log(dr_name)
         console.log(app_date,app_time);
-              
+ 
             
          $.ajax({
             url: "/appointment",
@@ -349,11 +353,10 @@ $(document).ready(function() {
             },
            success: function(response) {
             
-          //  $("#response").html(response);
-          document.getElementById("result").innerHTML =
-              response
+
+          document.getElementById("result").innerHTML = response;
 	     $('#stats').show();
-      //  window.location.reload();
+
           
 
          },

@@ -2,7 +2,7 @@ from flask import Flask,render_template
 import sqlalchemy
 from flask_login import LoginManager,login_required
 
-from utils.models import db, Users
+from utils.models import db, Users,InPatientsData,AppointmentsData
 
 from utils.index import index
 from utils.login_auth import login
@@ -12,6 +12,9 @@ from utils.home import home
 from utils.appoint import appointment
 from utils.inpatient import inpatient
 from utils.dashboard import dashboard
+from utils.stats import stats
+
+
 
 ## https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login -- ref
 
@@ -35,6 +38,8 @@ app.register_blueprint(home)
 app.register_blueprint(appointment)
 app.register_blueprint(inpatient)
 app.register_blueprint(dashboard)
+app.register_blueprint(stats)
+
 
 
 
@@ -69,6 +74,16 @@ def inpatient_landing():
 @login_required
 def dash_page():
     return render_template('dashboard.html')
+
+
+@app.route('/view_stats')
+@login_required
+def stats_page():
+    return render_template('stats.html')
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+  <link rel="stylesheet" href="../static/css/datepicker_ui.css" />
+
+  <!-- Bootstrap CSS File -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/bootstrap-multiselect.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
+<!--   <link href="{{ url_for('static', filename='css/icofont.min.css') }}" rel="stylesheet" /> -->
+  <!-- Libraries CSS Files -->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" /> -->
+
+  <!-- Main Stylesheet File -->
+  <link href="../static/css/style.css" rel="stylesheet" />
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    
+  </head>
+
+    
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <title>Home</title> -->
+</head>
+<style>
+    .display table {
+      width: 80%;
+    }
+  
+    .display th {
+      color: white;
+      background: #87ceeb;
+      height: 50px;
+    }
+  
+    .display td {
+      height: 50px;
+    }
+  
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .stylebutton {
+      margin-left: 500px;
+    }
+  
+    .ui-datepicker {
+      width: 18em;
+      margin-top: 70px;
+    }
+  
+    h1 {
+      color: green;
+    }
+  
+    ul.multiselect-container {
+      height: 250px;
+      overflow: scroll;
+      overflow-x: hidden;
+    }
+
+    
+    
+  </style>
+
+<body>
+
+   <div class="container-fluid header-wrapper sticky-top mb-5 p-0">
+    <div class="container">
+      <header>
+        <nav class="navbar navbar-expand-lg p-0">
+         
+          
+          <a class="navbar-brand pl-0" href="/home">
+            <img src=/static/images/title_logo.png alt="no image" height="72" />
+          </a>
+          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav">
+            <span class="navbar-toggler-icon"><i class="material-icons">menu</i></span>
+          </button>
+
+          <!--  Banner part start        -->
+          <div class="collapse navbar-collapse main-menu text-left" id="nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link swipe-up" href="/home">
+                  <span>Home</span></a>
+              </li>
+              <li class="nav-item">
+                <a style="padding:10px;" class="nav-link swipe-up" href="/book_appointment">
+                  <span >Book Appointment</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link swipe-up" href="/inpatient_entry">
+                  <span>Inpatient Entry</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link swipe-up" href="/view_dashboard">
+                  <span>Dashboard</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link swipe-up" href="/view_stats">
+                  <span>Statistics</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link swipe-up" href="/logout">
+                  <span>Logout</span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+    </div>
+  </div>
+
+  <!-- -------------Nav bar end------------------ -->
+  <div style="width: 85%; margin-right: 10%; margin-left: 10%;">
+  <div class="row" id = "row1">
+
+        <div class="col-md-4" id = 'gender_pie_chart'>
+
+
+
+        </div>
+        
+        <div class="col-md-8" id="dis_bar_chart">
+
+            
+        </div>
+
+        
+       
+
+
+  </div>
+
+  <br><br>
+<!----ROw 1 starts and 1 ends -->
+  <div class="row" id = "row2">
+
+    <div class="col-md-8" id= 'week_bar_chart'>
+
+
+    </div>
+    
+    <div class="col-md-4"  id ='dr_pie_chart'>
+
+            
+    </div>
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+</body>
+<!-- JavaScript Libraries -->
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+
+    $(window).on("load", patient_data);
+    function patient_data() {     
+            
+         $.ajax({
+            url: "/stats_data",
+            type: "post",
+            contentType: "application/json",
+            // data: {
+            //   username : username,
+            //   password : password,
+            // },
+           success: function(response) {
+
+            var data = response['data']
+
+            console.log(data)
+
+                var layoutPay = {title:"Patients by Gender"};
+                var dataPay = [{labels:data["gender_chart"]["labels"], values:data["gender_chart"]["values"], type:"pie"}];
+                Plotly.newPlot("gender_pie_chart", dataPay, layoutPay,{scrollZoom: true});
+                //    console.log(response['data']['gender_chart'])  ;
+
+
+
+
+                //    <!--Display bar chart showing passengers paying additional charges with different combinations-->
+
+                var dataAdditionalPercent = [
+                {
+                    x: data["dis_bar_chart"]["labels"],
+                    y: data["dis_bar_chart"]["values"],
+                    type: 'bar',
+                    marker : {color:['#003f5c','#955196','#444e86','#dd5182','#ff6e54','#ffa600','rgb(205,92,92)','#ff6e54','#ffa600']},
+                }
+                ];
+
+                var layoutAdditionalPercent = {
+                title: 'Patients with Diseases',
+                yaxis: {title: "Count"},
+                font:{
+                    family: 'Raleway, sans-serif'
+                },
+                xaxis: {
+                    tickangle: -45,
+                    automargin: true,
+                    ticktext : data["dis_bar_chart"]["labels"]
+                },
+                yaxis: {
+                    zeroline: false,
+                    gridwidth: 2,
+                }
+                };
+
+                Plotly.newPlot('dis_bar_chart', dataAdditionalPercent,layoutAdditionalPercent,{scrollZoom: true});
+
+                /// PIE CHart for Drs
+
+
+                var layoutPay = {title:"Doctor's Availablity"};
+                var dataPay = [{labels:data["dr_pie_chart"]["labels"], values:data["dr_pie_chart"]["values"], type:"pie"}];
+                Plotly.newPlot("dr_pie_chart", dataPay, layoutPay,{scrollZoom: true});
+
+                
+         
+                var dataAdditionalPercent = [
+                {
+                    x: data["week_bar_chart"]["labels"],
+                    y: data["week_bar_chart"]["values"],
+                    type: 'bar',
+                    marker : {color:['#003f5c','#955196','#444e86','#dd5182','#ff6e54','#ffa600','rgb(205,92,92)','#ff6e54','#ffa600']},
+                }
+                ];
+
+                var layoutAdditionalPercent = {
+                title: 'Traffic on Weekdays',
+                yaxis: {title: "Count"},
+                font:{
+                    family: 'Raleway, sans-serif'
+                },
+                xaxis: {
+                    tickangle: -45,
+                    automargin: true,
+                    ticktext : data["week_bar_chart"]["labels"]
+                },
+                yaxis: {
+                    zeroline: false,
+                    gridwidth: 2,
+                }
+                };
+
+                Plotly.newPlot('week_bar_chart', dataAdditionalPercent,layoutAdditionalPercent,{scrollZoom: true});
+
+
+
+
+         },
+          error: function(xhr) {
+        //Do Something to handle error
+        console.log("Error")
+        
+        }
+       });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</html>

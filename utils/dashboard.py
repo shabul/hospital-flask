@@ -29,8 +29,8 @@ login_manager.init_app(dashboard)
 def dashboard_appoint():
     print("Im in dashboard")
     inp_data = AppointmentsData.query.all()
-
-    print(inp_data,type(inp_data))
+    
+    # print(inp_data,type(inp_data))
     
     
 
@@ -38,7 +38,6 @@ def dashboard_appoint():
     for pat in inp_data:
         response_inpatients.append(row2dict(pat))
 
-    print(response_inpatients)
     
     return jsonify({'data' : response_inpatients})
 
@@ -48,7 +47,7 @@ def dashboard_inpatient():
     print("Im in dashboard")
     inp_data = InPatientsData.query.all()
 
-    print(inp_data,type(inp_data))
+    # print(inp_data,type(inp_data))
     
     
 
@@ -56,6 +55,6 @@ def dashboard_inpatient():
     for pat in inp_data:
         response_inpatients.append(row2dict(pat))
 
-    print(response_inpatients)
+    # print(response_inpatients)
     
     return jsonify({'data' : response_inpatients})

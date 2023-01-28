@@ -17,7 +17,7 @@ class Appointments(UserMixin,db.Model):
     patient_name = db.Column(db.String(25))
     age = db.Column(db.Integer)
     gender = db.Column(db.String(10))
-    med_comp = db.Column(db.ARRAY(db.String(25)))
+    med_comp = db.Column(db.String(100))
     address = db.Column(db.String(100))
     height = db.Column(db.Integer)
     weight = db.Column(db.Integer)

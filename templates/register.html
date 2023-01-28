@@ -24,7 +24,7 @@
 
 <body style="width: 25%; margin: auto;margin-top: 10%;">
     <div >
-    <h1 class="fw-normal mb-3 pb-3" style="font-size:50px;text-align: center;font-size:xx-large ;font-style: normal;color: #357EC7;"><b>LOGIN</b></h1>
+    <h1 class="fw-normal mb-3 pb-3" style="font-size:50px;text-align: center;font-size:xx-large ;font-style: normal;color: #357EC7;"><b>REGISTER</b></h1>
     </div>
     <!-- <br/> -->
     <form> 
@@ -32,23 +32,23 @@
         <div class="msg" id ="msg" style="display: none"></div>
         <label >Username </label>
         <div class="form-outline mb-3">
-        <input type="text" name="username" id="username" class="form-control" placeholder="Enter username">
+        <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" required>
         </div>
         
         <label >Email </label>
 
         <div class="form-outline mb-3">
-          <input type="text" name="email" id="email" class="form-control" placeholder="Enter username">
+          <input type="text" name="email" id="email" class="form-control" placeholder="Enter Email ID" required>
           </div>
 
 
         <label >Password </label>
         <div class="form-outline mb-4">
-        <input type="password" name="password" id ="password" class="form-control" placeholder="Enter password">
+        <input type="password" name="password" id ="password" class="form-control" placeholder="Enter password" aria-required="true">
         </div>
         <label >Confirm Password </label>
         <div class="form-outline mb-4">
-        <input type="password" name="confirm_password" id ="confirm_password" class="form-control" placeholder="Enter password">
+        <input type="password" name="confirm_password" id ="confirm_password" class="form-control" placeholder="Re- enter password" aria-required="true">
         </div>
         
         <div style="text-align: center;">
@@ -94,7 +94,7 @@
 $(document).ready(function() {
       $("#signup").click(function(event){
 
-
+        event.preventDefault();
 
         var username = document.getElementById('username').value;
         var password =  document.getElementById('password').value;
@@ -118,10 +118,13 @@ $(document).ready(function() {
             console.log(response);
             if(response['registration'] == 'success'){
               alert('Successfully Registered')
-            window.location = "/";
+              window.location = "/";
+            }
+            else if (response['registration'] =="Failed"){
+              alert("Failed to register. Please Re-enter details")
+              window.location = "/register_auth";
             }
             else{
-              
               alert(response['registration']);
             }
 

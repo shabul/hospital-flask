@@ -144,7 +144,7 @@
     <br/>
     <div class="row">
     <div class="col-md-6">
-    <form>
+    <form id="appoint_form">
         
         <label >Patient Name </label>
         <input type="text" id="pname" class="form-control" placeholder="Patient Name">
@@ -306,6 +306,10 @@ function isNumber(e){
 
 $(document).ready(function() {
       $("#submit-button").click(function(event){
+
+        // code for making the ui to wait for data from backend 
+        event.preventDefault();
+
         var pname = document.getElementById('pname').value;
         var age =  document.getElementById('age').value;
         var gender = $('input[name="gender"]:checked').val();
@@ -352,12 +356,19 @@ $(document).ready(function() {
             
             },
            success: function(response) {
-            
+           
+            console.log(response)
+            if (response["appoint_res"]=="Failed"){
+              document.getElementById("result").innerHTML = "Failed ! Re-enter the appointment details";
+              document.getElementById("appoint_form").reset();
+            }
+            else{               
+              document.getElementById("result").innerHTML = response["appoint_res"];
+              document.getElementById("appoint_form").reset();
+            }
 
-          document.getElementById("result").innerHTML = response;
-	     $('#stats').show();
+            $('#stats').show();
 
-          
 
          },
           error: function(xhr) {

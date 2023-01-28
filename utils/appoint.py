@@ -51,7 +51,7 @@ def show():
             db.session.add(new_user)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
-            return 'Entered Data Already exists or mismatches with the format it takes.<br> Kindly Re-check all fields and Book again.'
+            return jsonify({"appoint_res":'Entered Data Already exists or mismatches with the format it takes.<br> Kindly Re-check all fields and Book again.'})
 
         appointment_id_from_db = AppointmentsData.query.filter_by(patient_name=pname).first().appointment_id
 
@@ -63,4 +63,7 @@ def show():
         appointment_reference['time'] = str(app_time)
         print(appointment_reference)
         # flash('Successfully booked appointment')
-        return 'Appoinment has been fixed for {} at {} on {} with {}.<br> Appointment ID for reference is {}<br> Thank you'.format(pname,app_time,app_date,dr_name,appointment_id_from_db)
+        return jsonify({"appoint_res":'Appoinment has been fixed for {} at {} on {} with {}.<br> Appointment ID for reference is {}<br> Thank you'.format(pname,app_time,app_date,dr_name,appointment_id_from_db)})
+    
+    else:
+        return jsonify({"appoint_res":"Failed"})

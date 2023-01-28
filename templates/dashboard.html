@@ -15,6 +15,8 @@
   <!-- Libraries CSS Files -->
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" /> -->
 
   <!-- Main Stylesheet File -->
   <link href="../static/css/style.css" rel="stylesheet" />
@@ -131,12 +133,12 @@
           <h2>Appointment Records</h2>
         </div>
       </div>
-      <table id="app_table"  ></table>          
+      <table id="app_table" ></table>          
     </div>
   </div>
 
   <div class="container-fluid content-wrapper mb-5 p-0">
-    <div class="container wrapper services">
+    <div class="container wrapper services col-md-10">
       <div class="row">
         <div class="col-6 title">
           <h2>Inpatient Records</h2>
@@ -161,7 +163,6 @@
 <script type="text/javascript"
   src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.12.1/api/column().title().js"></script>
 
 
 <script type="text/javascript">
@@ -225,10 +226,18 @@
             columns: [
               { title: "Patient Id", data: "patient_id" },
               { title: "Patient Name",data: "patient_name"},
+              { title: "Date of Birth",data: "dob"},
               { title: "Gender", data:"gender"},
-              { title: "Age", data:"age"},
-              { title: "Doctor Name", data:"doctor_name"},
+              { title: "Admitted Room Type", data:"room_type"},
+              { title: "Insurance Availability", data:"insurance"},
+              { title: "Employment Type", data:"emp_type"},
+              { title: "Contact Person Name", data:"contact_person"},
+              { title: "Phone Number", data:"phone_number"},
+              { title: "Doctor Name", data:"dr_name"},
+              { title: "Admit Date", data:"admit_date"},
               { title: "Admit Time", data:"admit_time"},
+              { title: "Minor/Major",data: "minor"},
+              { title: "Accident Case",data: "accident"},
         ]
 
 } );

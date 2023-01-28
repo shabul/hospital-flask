@@ -51,4 +51,7 @@ def show():
         else:
             print("jsonify({'registration' : 'Please fill all the fields'})")
             return jsonify({'registration' : 'Please fill all the fields'})
+    
+    else:
+        return jsonify({"registration": "Failed"})
                     

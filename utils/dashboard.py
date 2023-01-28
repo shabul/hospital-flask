@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 import pandas as pd
 
 
-from utils.models import AppointmentsData, InPatients
+from utils.models import AppointmentsData,InPatientsData
 from pytz import timezone
 from datetime import datetime
 
@@ -46,7 +46,7 @@ def dashboard_appoint():
 @dashboard.route('/inpatient_data', methods=['GET', 'POST'])
 def dashboard_inpatient():
     print("Im in dashboard")
-    inp_data = InPatients.query.all()
+    inp_data = InPatientsData.query.all()
 
     print(inp_data,type(inp_data))
     

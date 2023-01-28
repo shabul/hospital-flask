@@ -31,12 +31,12 @@
         <!-- OLD CODE----------- -->
         <div class="msg" id ="msg" style="display: none"></div>
         <label >Username </label>
-        <div class="form-outline mb-3">
-        <input type="text" name="username" id="username" class="form-control" placeholder="Enter username">
+        <div class="form-outline mb-3" >
+        <input type="text" name="username" id="username" class="form-control" placeholder="Enter username" required/>
         </div>
         <label >Password </label>
         <div class="form-outline mb-4">
-        <input type="password" name="password" id ="password" class="form-control" placeholder="Enter password">
+        <input type="password" name="password" id ="password" class="form-control" placeholder="Enter password" required/>
         </div>
         <div style="text-align: center;">
         <button type="submit" class="btn btn-primary" id="signin">SIGN IN</button>
@@ -81,7 +81,7 @@
 $(document).ready(function() {
       $("#signin").click(function(event){
 
-
+        event.preventDefault();
 
         var username = document.getElementById('username').value;
         var password =  document.getElementById('password').value;
@@ -103,10 +103,19 @@ $(document).ready(function() {
               console.log('success')
             window.location = "/home";
             }
-            else{
-              
+
+            else if (response['auth'] == 'Incorrect Username / Password') {
+                            
               alert(response['auth']);
             }
+            else if (response['auth'] == 'User not found. Kindly Register'){
+              alert(response['auth']);
+              window.location = "/register_auth";
+            }
+            else{
+              alert("Failed to login! Kindly Re-enter login credentials");
+              window.location = "/";
+            }               
 
          },
           error: function(xhr) {

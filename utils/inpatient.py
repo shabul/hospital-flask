@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, render_template, redirect, request
+from flask import Blueprint, url_for, render_template, redirect, request,jsonify
 from flask_login import LoginManager,login_required
 from werkzeug.security import generate_password_hash
 import sqlalchemy
@@ -23,22 +23,22 @@ def show():
         print(1000*"_+_+")
         x = request.args.get('res')
         print(x)
-        patient_name  = 'shssssgsj'   
-        dob  = datetime.strptime('2022-09-12', '%Y-%m-%d').date()  
-        gender  =   'Male'  
-        room_type  =  'AC'   
-        insurance  =  True   
-        emp_type  =    'Givt' 
-        contact_person  =  'shasssb'   
-        phone_number  =   '7897'  
-        dr_name  =   'jhghjfd'  
-        admit_date  =  datetime.strptime('2022-05-06', '%Y-%m-%d').date()  
-        admit_time  =  datetime.strptime('23:47', '%H:%M').time()   
-        minor  =  True   
-        accident  =  False   
+        patient_name  = request.args.get('pname') #'shsssvsgsj'   
+        dob  =  datetime.strptime(request.args.get('dob'), '%Y-%m-%d').date()  
+        gender  =   request.args.get('gender') #'Male'  
+        room_type  =  request.args.get('roomType') #'AC'   
+        insurance  =  bool(request.args.get('insurance')) #True   
+        emp_type  =    request.args.get('emp_type') #'Givt' 
+        contact_person  =  request.args.get('contact_person') #'shasssb'   
+        phone_number  =   request.args.get('contact_person_number') #'7897'  
+        dr_name  =  request.args.get('dr_name') #'jhghjfd'  
+        admit_date  =  datetime.strptime(request.args.get('admit_date'), '%Y-%m-%d').date()  
+        admit_time  =  datetime.strptime(request.args.get('admit_time'), '%H:%M').time()   
+        minor  = bool(request.args.get('minor')) #True   
+        accident  = bool(request.args.get('accident')) # False   
         print(10*"==")
-        print(admit_date,admit_time)
-        print(type(admit_date),type(admit_time))
+        print(admit_date,admit_time,insurance)
+        print(type(admit_date),type(admit_time),type(insurance))
 
         try:
             new_user = InPatientsData(
@@ -60,7 +60,7 @@ def show():
             db.session.add(new_user)
             db.session.commit()
         except sqlalchemy.exc.IntegrityError:
-            return 'Entered Data Already exists or mismatches with the format it takes.<br> Kindly Re-check all fields and Book again.'
+            return jsonify({"inpatient_res":'Entered Data Already exists or mismatches with the format it takes.<br> Kindly Re-check all fields and Book again.'})
 
         inpatient_id_from_db = InPatientsData.query.filter_by(patient_name=patient_name).first().patient_id
 
@@ -73,4 +73,7 @@ def show():
         print(inpatient_reference)
 
         # flash("Added Successfully")
-        return 'Inpatient Data has been entered for {} at {} on {} with {}.<br> Inpataient ID for reference is {}<br> Thank you'.format(patient_name,admit_time,admit_date,dr_name,inpatient_id_from_db)
+        return jsonify({"inpatient_res":'Inpatient Data has been entered for {} at {} on {} with {}.<br> Inpataient ID for reference is {}<br> Thank you'.format(patient_name,admit_time,admit_date,dr_name,inpatient_id_from_db)})
+
+    else:
+        return jsonify({"inpatient_res": "Failed"})

@@ -141,7 +141,7 @@
     <div class="row">
       <div class="col-md-6">
 
-    <form>
+    <form id="inpatient_form">
       <label >Patient Name </label>
       <input type="text" id="pname" class="form-control" placeholder="Patient Name">
       <br/>
@@ -241,7 +241,7 @@
       <br>        
 
       <label>Contact Person Phone Number</label>
-      <input type="text" id="contact_person_number"  class="form-control" placeholder="Enter Contact Person Phone Number" onkeypress="return isNumber(event);"  />
+      <input type="text" id="contact_person_number"  class="form-control" placeholder="Enter Contact Person Phone Number" onkeypress="return isNumber(event);"/>
       <br>        
 
 
@@ -338,7 +338,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.12.1/api/column().title().js"></script>
 
-<script>
+<script type="text/javascript">
 
 
 function isNumber(e){
@@ -352,8 +352,11 @@ function isNumber(e){
 
 $(document).ready(function() {
       $("#submit-button").click(function(event){
+        $("#gen").prop("disabled", true);
+        // $("#result").hide()
+        event.preventDefault();
         var pname = document.getElementById('pname').value;
-        var age =  document.getElementById('dob').value;
+        var dob =  document.getElementById('dob').value;
         var gender = $('input[name="gender"]:checked').val();
         var roomType = $('input[name="roomType"]:checked').val();
                     
@@ -386,16 +389,36 @@ $(document).ready(function() {
  
             
          $.ajax({
-            url: "/yuuyuiyui",
-            type: "get",
+            url: "/inpatient",
+            type: "GET",
             contentType: "application/json",
             data :{
-            res : 'pop'
+            pname : pname,
+            dob : dob,
+            gender : gender,
+            roomType:roomType,
+            insurance:insurance,
+            emp_type:emp_type,
+            contact_person:contact_person,
+            contact_person_number:contact_person_number,
+            dr_name:dr_name,
+            admit_date:admit_date,
+            admit_time:admit_time,
+            minor:minor,
+            accident:accident,
+
             },
            success: function(response) {
-            
-
-          document.getElementById("result").innerHTML = response;
+            console.log(response)
+            if (response["inpatient_res"]=="Failed"){
+              document.getElementById("result").innerHTML = "Failed ! Re-enter the patient details";
+              document.getElementById("inpatient_form").reset();
+            }
+            else{               
+              document.getElementById("result").innerHTML = response["inpatient_res"];
+              document.getElementById("inpatient_form").reset();
+            }
+            // alert(response["inpatient_res"])
 	     $('#stats').show();
 
           
